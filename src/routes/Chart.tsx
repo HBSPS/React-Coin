@@ -33,7 +33,16 @@ function Chart({ coinId }: ChartProps) {
                 stroke: { curve: "smooth", width: 5 },
                 grid: { show: false },
                 yaxis: { show: false },
-                xaxis: { labels: { show: false }, axisTicks: { show: false }, axisBorder: { show: false } }
+                xaxis: {
+                    labels: { show: false, datetimeFormatter: {month: "mmm"} },
+                    type: "datetime",
+                    axisTicks: { show: false },
+                    axisBorder: { show: false },
+                    categories: data?.map(price => (price.time_close * 1000))
+                },
+                fill: { type: "gradient", gradient: { gradientToColors: ["#ffeaa7"], stops: [0, 100] } },
+                colors: ["#4ECDC4"],
+                tooltip: { y: { formatter: (value) => `$${value.toFixed(2)}` } },
             }} />}
         </div>
     )
