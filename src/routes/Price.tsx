@@ -54,14 +54,17 @@ const Content = styled.div`
     flex-direction: column;
     border-radius: 10px;
     background-color: ${(props) => props.theme.cardBgColor};
+    transition: background-color .2s ease-in-out;
     span {
         text-align: center;
         display: block;
         padding: 10px;
+        transition: color .2s ease-in-out;
     }
     span:last-child {
         color: ${(props) => props.theme.accentColor};
         font-weight: bold;
+        transition: color .2s ease-in-out;
     }
 `;
 

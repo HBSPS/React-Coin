@@ -26,12 +26,14 @@ const Title = styled.h1`
     font-size: 48px;
     color: ${(props) => props.theme.accentColor};
     font-weight: bold;
+    transition: color .2s ease-in-out;
 `;
 
 const GoHome = styled.div`
     display: block;
     background-color: ${(props) => props.theme.cardBgColor};
     border-radius: 10px;
+    transition: background-color .2s ease-in-out;
     transition: color .2s ease-in-out;
     a {
         display: block;
@@ -56,6 +58,7 @@ const Overview = styled.div`
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 10px 20px;
   border-radius: 10px;
+  transition: background-color .2s ease-in-out;
 `;
 
 const OverviewItem = styled.div`
@@ -72,6 +75,7 @@ const OverviewItem = styled.div`
 
 const Description = styled.p`
   margin: 20px 0px;
+  transition: color .2s ease-in-out;
 `;
 
 const Tabs = styled.div`
@@ -89,6 +93,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 7px 0px;
   border-radius: 10px;
+  transition: color .2s ease-in-out;
   font-weight: ${(props) =>
     props.isActive ? "bold" : "light"};
   color: ${(props) =>
@@ -96,17 +101,22 @@ const Tab = styled.span<{ isActive: boolean }>`
   a {
     display: block;
   }
+  &:hover {
+    color: ${(props) => props.theme.accentColor};
+    transition: color .2s ease-in-out;
+  }
 `;
 
 const DarkToggle = styled.button`
     display: block;
     background-color: ${(props) => props.theme.cardBgColor};
     border-radius: 10px;
-    transition: color .2s ease-in-out;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     color: ${(props) => props.theme.textColor};
+    transition: background-color .2s ease-in-out;
+    transition: color .2s ease-in-out;
     &:hover {
         color: ${(props) => props.theme.accentColor};
         transition: color .2s ease-in-out;

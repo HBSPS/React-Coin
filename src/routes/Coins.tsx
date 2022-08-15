@@ -25,6 +25,8 @@ const Coin = styled.li`
     color: ${(props) => props.theme.textColor};
     margin-bottom: 10px;
     border-radius: 15px;
+    transition: background-color .2s ease-in-out;
+    transition: color .2s ease-in-out;
     a {
         display: flex;
         align-items: center;
@@ -49,6 +51,7 @@ const Title = styled.h1`
     font-size: 48px;
     color: ${(props) => props.theme.accentColor};
     font-weight: bold;
+    transition: color .2s ease-in-out;
 `;
 
 const Loader = styled.div`
@@ -68,10 +71,12 @@ const DarkToggle = styled.button`
     display: block;
     background-color: ${(props) => props.theme.cardBgColor};
     border-radius: 10px;
-    transition: color .2s ease-in-out;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    color: ${(props) => props.theme.textColor};
+    transition: background-color .2s ease-in-out;
+    transition: color .2s ease-in-out;
     &:hover {
         color: ${(props) => props.theme.accentColor};
         transition: color .2s ease-in-out;
