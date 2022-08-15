@@ -12,11 +12,10 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-    height: 10vh;
+    height: 8vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
 `;
 
 const CoinsList = styled.ul``;
@@ -37,6 +36,13 @@ const Coin = styled.li`
             color: ${(props) => props.theme.accentColor};
         }
     }
+`;
+
+const Tool = styled.div`
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: right;
 `;
 
 const Title = styled.h1`
@@ -65,8 +71,6 @@ const DarkToggle = styled.button`
     transition: color .2s ease-in-out;
     padding: 10px 20px;
     border: none;
-    position: absolute;
-    right: -60px;
     cursor: pointer;
     &:hover {
         color: ${(props) => props.theme.accentColor};
@@ -110,9 +114,11 @@ function Coins({toggleDark, isDark}: ICoinProps) {
                     Coins
                 </title>
             </Helmet>
+            <Tool>
+                <DarkToggle onClick={toggleDark}>{isDark ? <BsSun />  : <BsMoonStars />}</DarkToggle>
+            </Tool>
             <Header>
                 <Title>Coins</Title>
-                <DarkToggle onClick={toggleDark}>{isDark ? <BsSun />  : <BsMoonStars />}</DarkToggle>
             </Header>
             {isLoading ? (
                 <Loader>Loading...</Loader>

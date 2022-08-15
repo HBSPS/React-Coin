@@ -16,11 +16,10 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-    height: 10vh;
+    height: 8vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    position: relative;
+    justify-content: center;
 `;
 
 const Title = styled.h1`
@@ -106,13 +105,19 @@ const DarkToggle = styled.button`
     transition: color .2s ease-in-out;
     padding: 10px 20px;
     border: none;
-    position: absolute;
-    right: -60px;
     cursor: pointer;
+    color: ${(props) => props.theme.textColor};
     &:hover {
         color: ${(props) => props.theme.accentColor};
         transition: color .2s ease-in-out;
     }
+`;
+
+const Tool = styled.div`
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 type RouteParams = {
@@ -214,11 +219,13 @@ function Coin({isDark, toggleDark}: ICoinProps) {
                     {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
                 </title>
             </Helmet>
-            <Header>
+            <Tool>
                 <GoHome>
                     <Link to={"/"}><AiOutlineHome /></Link>
                 </GoHome>
-                <DarkToggle onClick={toggleDark}>{isDark ? <BsSun />  : <BsMoonStars />}</DarkToggle>
+                <DarkToggle onClick={toggleDark}>{isDark ? <BsSun /> : <BsMoonStars />}</DarkToggle>
+            </Tool>
+            <Header>
                 <Title>
                     {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
                 </Title>
