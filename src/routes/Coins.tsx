@@ -26,7 +26,6 @@ const Coin = styled.li`
     margin-bottom: 10px;
     border-radius: 15px;
     transition: background-color .2s ease-in-out;
-    transition: color .2s ease-in-out;
     a {
         display: flex;
         align-items: center;
