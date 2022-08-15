@@ -53,7 +53,7 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.theme.cardBgColor};
     span {
         text-align: center;
         display: block;

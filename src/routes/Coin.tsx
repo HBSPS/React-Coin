@@ -29,7 +29,7 @@ const Title = styled.h1`
 
 const GoHome = styled.div`
     display: block;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.theme.cardBgColor};
     border-radius: 10px;
     transition: color .2s ease-in-out;
     a {
@@ -52,7 +52,7 @@ const Loader = styled.div`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.cardBgColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -85,7 +85,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.cardBgColor};
   padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) =>
@@ -203,26 +203,26 @@ function Coin() {
                 <>
                     <Overview>
                         <OverviewItem>
-                            <span>Rank:</span>
+                            <span>Rank</span>
                             <span>{infoData?.rank}</span>
                         </OverviewItem>
                         <OverviewItem>
-                            <span>Symbol:</span>
+                            <span>Symbol</span>
                             <span>${infoData?.symbol}</span>
                         </OverviewItem>
                         <OverviewItem>
                             <span>Price</span>
-                            <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
+                            <span>${tickersData?.quotes?.USD?.price?.toFixed(3)}</span>
                         </OverviewItem>
                     </Overview>
                     <Description>{infoData?.description}</Description>
                     <Overview>
                         <OverviewItem>
-                            <span>Total Suply:</span>
+                            <span>Total Suply</span>
                             <span>{tickersData?.total_supply}</span>
                         </OverviewItem>
                         <OverviewItem>
-                            <span>Max Supply:</span>
+                            <span>Max Supply</span>
                             <span>{tickersData?.max_supply}</span>
                         </OverviewItem>
                     </Overview>
