@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { Routes, Route, useLocation, useParams, Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import { Helmet } from 'react-helmet';
 import { AiOutlineHome } from "react-icons/ai";
+import { BsMoonStars, BsSun } from "react-icons/bs";
 
 import Chart from "./Chart";
 import Price from "./Price";
@@ -20,11 +20,13 @@ const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 `;
 
 const Title = styled.h1`
     font-size: 48px;
     color: ${(props) => props.theme.accentColor};
+    font-weight: bold;
 `;
 
 const GoHome = styled.div`
@@ -88,11 +90,29 @@ const Tab = styled.span<{ isActive: boolean }>`
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 7px 0px;
   border-radius: 10px;
+  font-weight: ${(props) =>
+    props.isActive ? "bold" : "light"};
   color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
     display: block;
   }
+`;
+
+const DarkToggle = styled.button`
+    display: block;
+    background-color: ${(props) => props.theme.cardBgColor};
+    border-radius: 10px;
+    transition: color .2s ease-in-out;
+    padding: 10px 20px;
+    border: none;
+    position: absolute;
+    right: -60px;
+    cursor: pointer;
+    &:hover {
+        color: ${(props) => props.theme.accentColor};
+        transition: color .2s ease-in-out;
+    }
 `;
 
 type RouteParams = {
@@ -160,7 +180,12 @@ interface PriceData {
     } ;
 };
 
-function Coin() {
+interface ICoinProps {
+    isDark: boolean;
+    toggleDark: () => void;
+}
+
+function Coin({isDark, toggleDark}: ICoinProps) {
     const { coinId } = useParams() as RouteParams;
     const { state } = useLocation() as RouteState;
     const priceMatch = useMatch("/:coinId/price");
@@ -193,6 +218,7 @@ function Coin() {
                 <GoHome>
                     <Link to={"/"}><AiOutlineHome /></Link>
                 </GoHome>
+                <DarkToggle onClick={toggleDark}>{isDark ? <BsSun />  : <BsMoonStars />}</DarkToggle>
                 <Title>
                     {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
                 </Title>
@@ -237,7 +263,7 @@ function Coin() {
                     </Tabs>
 
                     <Routes>
-                        <Route path="chart" element={<Chart coinId={ coinId } />} />
+                        <Route path="chart" element={<Chart isDark={isDark} coinId={ coinId } />} />
                         <Route path="price" element={<Price coinId={ coinId } />} />
                     </Routes>
                 </>

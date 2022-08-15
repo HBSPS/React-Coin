@@ -60,7 +60,8 @@ const Content = styled.div`
         padding: 10px;
     }
     span:last-child {
-        color: #4ECDC4;
+        color: ${(props) => props.theme.accentColor};
+        font-weight: bold;
     }
 `;
 

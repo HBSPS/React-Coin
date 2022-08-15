@@ -15,9 +15,10 @@ interface IHistoryData {
 
 interface ChartProps {
     coinId: string;
+    isDark: boolean;
 };
 
-function Chart({ coinId }: ChartProps) {
+function Chart({ coinId, isDark }: ChartProps) {
     const { isLoading, data } = useQuery<IHistoryData[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId), { refetchInterval: 10000 });
     return (
         <>
@@ -29,7 +30,7 @@ function Chart({ coinId }: ChartProps) {
                                 data: data?.map((price) => parseFloat(price.close)) ?? []
                             }
                         ]} options={{
-                            theme: { mode: "dark" },
+                            theme: { mode: isDark? "dark" : "light" },
                             chart: { height: 500, width: 500, toolbar: {show: false}, background: "transparent" },
                             stroke: { curve: "smooth", width: 5 },
                             grid: { show: false },
@@ -41,7 +42,7 @@ function Chart({ coinId }: ChartProps) {
                                 axisBorder: { show: false },
                                 categories: data?.map(price => (price.time_close * 1000))
                             },
-                            fill: { type: "gradient", gradient: { gradientToColors: ["#ffeaa7"], stops: [0, 100] } },
+                            fill: { type: "gradient", gradient: { gradientToColors: [isDark ? "#ffeaa7" : "#0984e3"], stops: [0, 100] } },
                             colors: ["#4ECDC4"],
                             tooltip: { y: { formatter: (value) => `$${value.toFixed(2)}` } },
                         }}
@@ -51,9 +52,9 @@ function Chart({ coinId }: ChartProps) {
                                 data: data?.map((price) => {return {x: new Date(price.time_close * 1000), y: [parseFloat(price.open).toFixed(2), parseFloat(price.high).toFixed(2), parseFloat(price.low).toFixed(2), parseFloat(price.close).toFixed(2)]}}) ?? []
                             }
                         ]} options={{
-                            theme: { mode: "dark" },
+                            theme: { mode: isDark? "dark" : "light" },
                             chart: { height: 500, width: 500, toolbar: {show: false}, background: "transparent" },
-                            plotOptions: { candlestick: { colors: { upward: "#4ECDC4", downward: "#ffeaa7" } } },
+                            plotOptions: { candlestick: { colors: { upward: "#4ECDC4", downward: isDark ? "#ffeaa7" : "#e17055" } } },
                             grid: { show: true },
                             yaxis: { show: false },
                             xaxis: {

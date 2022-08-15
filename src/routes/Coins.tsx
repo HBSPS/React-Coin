@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
+import { BsMoonStars, BsSun } from "react-icons/bs";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -16,6 +16,7 @@ const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 `;
 
 const CoinsList = styled.ul``;
@@ -41,6 +42,7 @@ const Coin = styled.li`
 const Title = styled.h1`
     font-size: 48px;
     color: ${(props) => props.theme.accentColor};
+    font-weight: bold;
 `;
 
 const Loader = styled.div`
@@ -56,6 +58,22 @@ const Img = styled.img`
     margin-right: 10px;
 `;
 
+const DarkToggle = styled.button`
+    display: block;
+    background-color: ${(props) => props.theme.cardBgColor};
+    border-radius: 10px;
+    transition: color .2s ease-in-out;
+    padding: 10px 20px;
+    border: none;
+    position: absolute;
+    right: -60px;
+    cursor: pointer;
+    &:hover {
+        color: ${(props) => props.theme.accentColor};
+        transition: color .2s ease-in-out;
+    }
+`;
+
 interface ICoin {
     id: string,
     name: string,
@@ -64,9 +82,14 @@ interface ICoin {
     is_new: boolean,
     is_active: boolean,
     type: string
-}
+};
 
-function Coins() {
+interface ICoinProps {
+    toggleDark: () => void;
+    isDark: boolean;
+};
+
+function Coins({toggleDark, isDark}: ICoinProps) {
     const { isLoading, data } = useQuery<ICoin[]>(["allCoins"], fetchCoins);
     /* 
     const [coins, setCoins] = useState<CoinInterface[]>([]);
@@ -89,6 +112,7 @@ function Coins() {
             </Helmet>
             <Header>
                 <Title>Coins</Title>
+                <DarkToggle onClick={toggleDark}>{isDark ? <BsSun />  : <BsMoonStars />}</DarkToggle>
             </Header>
             {isLoading ? (
                 <Loader>Loading...</Loader>
