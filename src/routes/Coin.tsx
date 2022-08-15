@@ -4,6 +4,7 @@ import { Routes, Route, useLocation, useParams, Link, useMatch } from "react-rou
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import { Helmet } from 'react-helmet';
+import { AiOutlineHome } from "react-icons/ai";
 
 import Chart from "./Chart";
 import Price from "./Price";
@@ -18,12 +19,27 @@ const Header = styled.header`
     height: 10vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 `;
 
 const Title = styled.h1`
     font-size: 48px;
     color: ${(props) => props.theme.accentColor};
+`;
+
+const GoHome = styled.div`
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    transition: color .2s ease-in-out;
+    a {
+        display: block;
+        padding: 10px 20px;
+    }
+    &:hover {
+        color: ${(props) => props.theme.accentColor};
+        transition: color .2s ease-in-out;
+    }
 `;
 
 const Loader = styled.div`
@@ -149,7 +165,7 @@ function Coin() {
     const { state } = useLocation() as RouteState;
     const priceMatch = useMatch("/:coinId/price");
     const chartMatch = useMatch("/:coinId/chart");
-    const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(["info", coinId], () => fetchCoinInfo(coinId));
+    const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(["info", coinId], () => fetchCoinInfo(coinId));
     const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(["tickers", coinId], () => fetchCoinTickers(coinId), { refetchInterval: 5000 });
     /* 
     const [loading, setLoading] = useState(true);
@@ -174,6 +190,9 @@ function Coin() {
                 </title>
             </Helmet>
             <Header>
+                <GoHome>
+                    <Link to={"/"}><AiOutlineHome /></Link>
+                </GoHome>
                 <Title>
                     {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
                 </Title>
@@ -219,7 +238,7 @@ function Coin() {
 
                     <Routes>
                         <Route path="chart" element={<Chart coinId={ coinId } />} />
-                        <Route path="price" element={<Price />} />
+                        <Route path="price" element={<Price coinId={ coinId } />} />
                     </Routes>
                 </>
             )}
